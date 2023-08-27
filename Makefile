@@ -12,6 +12,22 @@ single_node_clear:
 	rm -rf ./data/single/*
 
 
+# Docker commands for multi node
+multi_node_up:
+	docker-compose -f docker-compose.multi.yml up -d
+
+multi_node_down:
+	docker-compose -f docker-compose.multi.yml down
+
+multi_node_attach-1:
+	docker exec -it manticore1 mysql
+
+multi_node_attach-2:
+	docker exec -it manticore2 mysql
+
+multi_node_clear:
+	rm -rf ./data/multi/*
+
 
 ## API commands
 api_create_table:

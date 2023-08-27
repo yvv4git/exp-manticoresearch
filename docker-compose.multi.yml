@@ -1,0 +1,54 @@
+version: '3.7'
+
+services:
+  manticore-1:
+    hostname: manticore1
+    container_name: manticore1
+    image: manticoresearch/manticore
+    environment:
+      - EXTRA=1
+    restart: always
+    ports:
+      - "127.0.0.1:9306:9306"
+      - "127.0.0.1:9308:9308"
+      - "127.0.0.1:9312:9312"
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./data/multi/node1:/var/lib/manticore
+    networks:
+      - manticore
+
+  manticore-2:
+    hostname: manticore2
+    container_name: manticore2
+    image: manticoresearch/manticore
+    environment:
+      - EXTRA=1
+    restart: always
+    ports:
+      - "127.0.0.1:9406:9306"
+      - "127.0.0.1:9408:9308"
+      - "127.0.0.1:9412:9312"
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - ./data/multi/node2:/var/lib/manticore
+    networks:
+      - manticore
+
+networks:
+  manticore:
+    driver: bridge
